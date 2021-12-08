@@ -104,6 +104,16 @@ contract Minter is AbstractERC1155Factory  {
         emit Claimed(index, msg.sender, amount);
     }
 
+    function adminMint(
+        uint256 index,
+        uint256 amount
+    ) external onlyOwner {
+        require(NFTs[index].maxSupply >= amount, "Max supply reached");
+        NFTs[index].maxSupply -= amount;
+        _mint(msg.sender, index, amount, "");
+        emit Claimed(index, msg.sender, amount);
+    }
+
     function uri(uint256 _id) public view override returns (string memory) {
             require(totalSupply(_id) > 0, "URI: nonexistent token");
             

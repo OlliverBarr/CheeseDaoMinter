@@ -26,6 +26,7 @@ describe("CheezDAO Minter", function () {
       let balance = await mock.balanceOf(user.address);
       expect(balance).to.be.equal(initialBalance.sub(price));
       let NFTBalance = await minter.balanceOf(user.address, 0);
+      console.log((await mock.balanceOf(DAO.address)).toString());
       expect(NFTBalance.toString()).to.be.equal("1");
     });
 
@@ -63,6 +64,6 @@ describe("CheezDAO Minter", function () {
       await minter.connect(deployer).unpause();
       await minter.connect(user).purchase(0,1);
     })
-    
+
   });
 });
